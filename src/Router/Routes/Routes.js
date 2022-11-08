@@ -12,6 +12,7 @@ import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 import MyReviews from "../../Pages/MyReviews/MyReviews";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import EditReview from "../../Pages/EditReview/EditReview";
 
 
 
@@ -55,6 +56,12 @@ const router = createBrowserRouter([
             {
                 path: '/myreviews',
                 element: <PrivateRoute> <MyReviews></MyReviews> </PrivateRoute>,
+            },
+            {
+                path: `/editreviews/:id`,
+                element: <PrivateRoute>  <EditReview></EditReview> </PrivateRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/reviews/${params.id}`)
+
             },
             {
                 path: "/blog",
