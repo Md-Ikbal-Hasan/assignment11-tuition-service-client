@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import Review from '../Review/Review';
 
@@ -8,6 +9,9 @@ const ServiceDetails = () => {
     const { user } = useContext(AuthContext);
     const service = useLoaderData();
     const { _id, name, description, price, ratings } = service;
+
+    const navigate = useNavigate();
+
 
     const [reviews, setReviews] = useState([]);
     // console.log(user)
@@ -22,22 +26,50 @@ const ServiceDetails = () => {
 
     const handleReview = (e) => {
         e.preventDefault();
-        const form = e.target;
-        const reviewText = form.reviewMessage.value;
-        const ratings = form.ratings.value;
-        const serviceId = service._id;
-        const reviewerEmail = user?.email;
-        const reviewerImage = user?.photoURL;
+        if (user?.uid) {
 
-        const reviewInfo = {
-            reviewText,
-            ratings,
-            serviceId,
-            reviewerEmail,
-            reviewerImage,
+            const form = e.target;
+            const reviewText = form.reviewMessage.value;
+            const ratings = form.ratings.value;
+            const serviceId = service._id;
+            const reviewerEmail = user?.email;
+            const reviewerImage = user?.photoURL;
+            const dateOfReview = new Date();
+
+            const reviewInfo = {
+                reviewText,
+                ratings,
+                serviceId,
+                reviewerEmail,
+                reviewerImage,
+                dateOfReview
+            }
+
+            console.log(reviewInfo);
+
+            fetch(`http://localhost:5000/reviews`, {
+                method: "POST",
+                headers: {
+                    'content-type': "application/json",
+                    authorization: `Bearer ${localStorage.getItem('tuition-service-token')}`
+                },
+                body: JSON.stringify(reviewInfo)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.acknowledged) {
+                        toast.success("review added successfully!");
+                        console.log(data);
+                        form.reset();
+                    }
+                })
+                .catch(error => console.error(error))
         }
+        else {
+            toast.info("To add a review login first");
+            navigate('/login');
 
-        console.log(reviewInfo);
+        }
     }
 
 
