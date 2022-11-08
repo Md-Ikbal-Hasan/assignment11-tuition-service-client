@@ -24,6 +24,7 @@ const SocialLogin = () => {
             })
             .then(error => {
                 console.error(error);
+                toast.error(error.message);
             })
     }
     return (

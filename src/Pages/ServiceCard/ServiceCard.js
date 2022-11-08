@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaStar } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 const ServiceCard = ({ service }) => {
     const { _id, name, description, price, ratings } = service
     return (
@@ -11,7 +12,9 @@ const ServiceCard = ({ service }) => {
                 <p>Price: {price} </p>
                 <div className='flex items-center'>Rating: {ratings} <FaStar className='ml-1 text-orange-600' /> </div>
                 <div className="card-actions  ">
-                    <button className="btn btn-secondary w-full">Details</button>
+                    <Link to={`/services/${_id}`}>
+                        <button className="btn btn-secondary w-full">Details</button>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -10,7 +10,9 @@ export const setAuthToken = (user) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log("token from backend: ", data.token);
             localStorage.setItem('tuition-service-token', data.token);
+        })
+        .catch(error => {
+
         })
 }

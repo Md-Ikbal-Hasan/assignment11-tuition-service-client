@@ -30,7 +30,8 @@ const Login = () => {
                 setAuthToken(user);
             })
             .then(error => {
-                console.error(error)
+                console.error(error);
+
             })
 
     }

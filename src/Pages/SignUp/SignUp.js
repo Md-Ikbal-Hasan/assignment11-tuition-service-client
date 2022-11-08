@@ -33,6 +33,7 @@ const SignUp = () => {
             })
             .then(error => {
                 console.error(error)
+
             })
 
     }
