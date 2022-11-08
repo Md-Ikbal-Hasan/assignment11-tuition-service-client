@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { setAuthToken } from '../../api/auth';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
@@ -27,6 +28,7 @@ const SignUp = () => {
                 form.reset();
                 handleUpdateUserProfile(name);
                 toast.success("User created successfully!");
+                setAuthToken(user);
                 navigate(from, { replace: true });
             })
             .then(error => {

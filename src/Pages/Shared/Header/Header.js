@@ -7,7 +7,9 @@ const Header = () => {
 
     const handleLogOut = () => {
         logOut()
-            .then(() => { })
+            .then(() => {
+                localStorage.removeItem('tuition-service-token')
+            })
             .catch(error => console.log(error));
     }
 
@@ -27,9 +29,6 @@ const Header = () => {
 
                 </>
         }
-
-
-
 
     </>
 

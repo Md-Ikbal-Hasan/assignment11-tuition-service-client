@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { setAuthToken } from '../../../api/auth';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const SocialLogin = () => {
@@ -18,6 +19,7 @@ const SocialLogin = () => {
                 console.log("google user:", user);
                 toast.success("Successfully logged in!");
                 navigate(from, { replace: true });
+                setAuthToken(user);
 
             })
             .then(error => {

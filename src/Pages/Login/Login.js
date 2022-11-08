@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { setAuthToken } from '../../api/auth';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
@@ -26,6 +27,7 @@ const Login = () => {
 
                 toast.success("User logged in successfully!");
                 navigate(from, { replace: true });
+                setAuthToken(user);
             })
             .then(error => {
                 console.error(error)
