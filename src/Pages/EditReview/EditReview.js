@@ -1,13 +1,40 @@
 import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const EditReview = () => {
     const review = useLoaderData();
-    console.log(review);
     const [updatedReview, setUpdatedReview] = useState(review);
+
+    const navigate = useNavigate();
 
     const handleUpdateReview = (e) => {
         e.preventDefault();
+        fetch(`http://localhost:5000/reviews/${review._id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('tuition-service-token')}`
+            },
+            body: JSON.stringify(updatedReview)
+        })
+            .then(res => res.json())
+            .then((data) => {
+                if (data.modifiedCount > 0) {
+                    toast.success("review updated successfully !")
+                    navigate('/myreviews')
+                }
+
+            })
+    }
+
+    const handleReviewChange = (e) => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newReview = { ...updatedReview };
+
+        newReview[field] = value;
+        setUpdatedReview(newReview);
     }
 
     return (
@@ -19,14 +46,14 @@ const EditReview = () => {
                     <label className="label">
                         <span className="label-text">Your Review</span>
                     </label>
-                    <textarea defaultValue={updatedReview.reviewText} className="textarea textarea-bordered h-24" name='reviewMessage' placeholder="Type here...."></textarea>
+                    <textarea onChange={handleReviewChange} defaultValue={updatedReview.reviewText} className="textarea textarea-bordered h-24" name='reviewText' placeholder="Type here...."></textarea>
                 </div>
 
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Ratings</span>
                     </label>
-                    <input defaultValue={updatedReview.ratings} type="number" name='ratings' placeholder="ratings" className="input input-bordered" required />
+                    <input onChange={handleReviewChange} defaultValue={updatedReview.ratings} type="number" name='ratings' placeholder="ratings" className="input input-bordered" required />
 
                 </div>
 
