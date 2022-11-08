@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
 
-    const user = true;
     const menuItem = <>
         <li className='font-semibold'>  <Link to='/'>Home</Link> </li>
         <li className='font-semibold'>  <Link to='/services'>Services</Link> </li>
@@ -11,19 +10,6 @@ const Header = () => {
         <li className='font-semibold'>  <Link to='/signup'>SignUp</Link> </li>
         <li className='font-semibold'>  <Link to='/login'>Login</Link> </li>
         <li className='font-semibold'>  <button className='btn btn-secondary'>LogOut</button> </li>
-
-        {/* {
-            user ?
-                <>
-                    <li className='font-semibold'>  <Link to='/addproduct'>Add Products</Link> </li>
-                    <li className='font-semibold'>  <Link>LogOut</Link> </li>
-                </>
-                :
-                <>
-                    <li className='font-semibold'>  <Link>Login</Link> </li>
-                    <li className='font-semibold'>  <Link>SignUp</Link> </li>
-                </>
-        } */}
     </>
 
     return (
