@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import { toast } from 'react-toastify';
 
 const MyReviews = () => {
     const { user } = useContext(AuthContext);
@@ -19,6 +20,34 @@ const MyReviews = () => {
             .catch(error => console.log(error))
 
     }, [user?.email])
+
+
+    // delete review .......................
+    const handleReviewDelete = (id) => {
+        const proceed = window.confirm("Are you sure, you want to delete this review?");
+
+        if (proceed) {
+            fetch(`http://localhost:5000/reviews/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem('tuition-service-token')}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        toast.success('Deleted Successfully.');
+                        const remainingReviews = myReviews.filter(rev => rev._id !== id);
+                        setMyReviews(remainingReviews);
+                    }
+
+                })
+
+        }
+
+
+    }
 
     return (
         <div className='w-3/4 mx-auto'>
@@ -53,7 +82,7 @@ const MyReviews = () => {
                                         <td>{review.reviewText}</td>
                                         <td>{review.ratings}</td>
                                         <td>
-                                            <button className='btn btn-outline btn-error mr-2'> <FaTrashAlt /> </button>
+                                            <button onClick={() => handleReviewDelete(review._id)} className='btn btn-outline btn-error mr-2'> <FaTrashAlt /> </button>
                                             <button className='btn btn-outline btn-secondary'> <FaEdit /> </button>
                                         </td>
                                     </tr>
