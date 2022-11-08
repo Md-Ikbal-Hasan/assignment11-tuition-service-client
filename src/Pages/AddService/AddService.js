@@ -20,7 +20,7 @@ const AddService = () => {
         }
         console.log(serviceInfo, localStorage.getItem('tuition-service-token'));
 
-        fetch('http://localhost:5000/services', {
+        fetch('https://tuition-service-server.vercel.app/services', {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
