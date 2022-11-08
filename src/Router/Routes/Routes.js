@@ -9,6 +9,13 @@ import Blog from '../../Pages/Blog/Blog'
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import AddService from "../../Pages/AddService/AddService";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
+import MyReviews from "../../Pages/MyReviews/MyReviews";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+
+
+
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -44,6 +51,10 @@ const router = createBrowserRouter([
 
                 path: "/addservice",
                 element: <PrivateRoute> <AddService></AddService> </PrivateRoute>
+            },
+            {
+                path: '/myreviews',
+                element: <PrivateRoute> <MyReviews></MyReviews> </PrivateRoute>,
             },
             {
                 path: "/blog",
