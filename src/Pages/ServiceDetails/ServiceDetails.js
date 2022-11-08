@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
+import Review from '../Review/Review';
 
 const ServiceDetails = () => {
     const service = useLoaderData();
@@ -11,7 +12,6 @@ const ServiceDetails = () => {
         fetch(`http://localhost:5000/servicesreviews/${_id}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setReviews(data)
             })
     }, [_id])
@@ -40,7 +40,27 @@ const ServiceDetails = () => {
 
                 {/* review form  */}
                 <div>
-                    <p className='text-5xl'> this is revieew form   </p>
+                    <form className="card-body">
+
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Your Review</span>
+                            </label>
+                            <textarea className="textarea textarea-bordered h-24" name='review' placeholder="Type here...."></textarea>
+                        </div>
+
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Ratings</span>
+                            </label>
+                            <input type="number" name='ratings' placeholder="ratings" className="input input-bordered" required />
+
+                        </div>
+
+                        <div className="form-control mt-6">
+                            <input className='btn btn-secondary' type="submit" value="Add review" />
+                        </div>
+                    </form>
                 </div>
 
 
@@ -52,10 +72,12 @@ const ServiceDetails = () => {
             <div>
                 {
                     reviews.length ?
-                        <>
+                        <div>
+                            {
+                                reviews.map(review => <Review key={review._id} review={review} ></Review>)
+                            }
 
-
-                        </>
+                        </div>
                         :
                         <>
                             <h2 className='text-3xl text-center'>There is no review for this service !</h2>
