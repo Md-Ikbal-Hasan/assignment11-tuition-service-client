@@ -1,7 +1,7 @@
 export const setAuthToken = (user) => {
     const currentUser = { email: user.email };
 
-    fetch('https://genius-car-server-ten-xi.vercel.app/jwt', {
+    fetch('http://localhost:5000/jwt', {
         method: "POST",
         headers: {
             'content-type': "application/json"
@@ -10,6 +10,7 @@ export const setAuthToken = (user) => {
     })
         .then(res => res.json())
         .then(data => {
+            console.log("token from backend: ", data.token);
             localStorage.setItem('tuition-service-token', data.token);
         })
 }
