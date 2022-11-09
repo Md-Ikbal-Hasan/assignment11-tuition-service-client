@@ -8,6 +8,7 @@ import useTitle from '../../customHooks/useTitle';
 const MyReviews = () => {
     const { user } = useContext(AuthContext);
     const [myReviews, setMyReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
     useTitle('My Reviews')
 
     useEffect(() => {
@@ -19,6 +20,7 @@ const MyReviews = () => {
             .then(res => res.json())
             .then(data => {
                 setMyReviews(data);
+                setLoading(false);
             })
             .catch(error => {
                 console.log(error)
@@ -57,39 +59,57 @@ const MyReviews = () => {
 
     return (
         <div className='w-3/4 mx-auto'>
-            <h2 className='text-2xl text-center my-2'>My All Reviews : {myReviews.length} </h2>
+            {
+                loading ?
+                    <div className="flex justify-center items-center">
+                        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    :
+                    <>
+                        <h2 className='text-2xl text-center my-2'>My All Reviews : {myReviews.length} </h2>
 
-            <div className="overflow-x-auto my-2">
-                <table className="table table-zebra w-full">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Review_Text</th>
-                            <th>Ratings</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {
-                            myReviews.map((review, index) => {
-                                return (
-                                    <tr key={review._id}>
-                                        <th>{index + 1}</th>
-                                        <td>{review.reviewText}</td>
-                                        <td>{review.ratings}</td>
-                                        <td>
-                                            <button onClick={() => handleReviewDelete(review._id)} className='btn btn-outline btn-error mr-2'> <FaTrashAlt /> </button>
-                                            <Link to={`/editreviews/${review._id}`} className='btn btn-outline btn-secondary'> <FaEdit /> </Link>
-                                        </td>
+                        <div className="overflow-x-auto my-2">
+                            <table className="table table-zebra w-full">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Review_Text</th>
+                                        <th>Ratings</th>
+                                        <th>Action</th>
                                     </tr>
-                                )
-                            })
-                        }
+                                </thead>
+                                <tbody>
 
-                    </tbody>
-                </table>
-            </div>
+
+                                    {
+                                        myReviews.map((review, index) => {
+                                            return (
+                                                <tr key={review._id}>
+                                                    <th>{index + 1}</th>
+                                                    <td>{review.reviewText}</td>
+                                                    <td>{review.ratings}</td>
+                                                    <td>
+                                                        <button onClick={() => handleReviewDelete(review._id)} className='btn btn-outline btn-error mr-2'> <FaTrashAlt /> </button>
+                                                        <Link to={`/editreviews/${review._id}`} className='btn btn-outline btn-secondary'> <FaEdit /> </Link>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </>
+            }
+
+
+
         </div>
     );
 };

@@ -52,7 +52,6 @@ const AddService = () => {
 
             <form onSubmit={handleService} className="card-body">
 
-
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Name</span>

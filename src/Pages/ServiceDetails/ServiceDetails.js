@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../customHooks/useTitle';
@@ -10,21 +10,28 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 
 const ServiceDetails = () => {
-    useTitle('Service Details')
+    useTitle('Service Details');
+    const [reviews, setReviews] = useState([]);
+    const [loadReviews, setLoadReviews] = useState(0);
+    const [loading, setLoading] = useState(true);
+
     const { user } = useContext(AuthContext);
     const service = useLoaderData();
     const { _id, name, description, price, ratings } = service;
 
     const navigate = useNavigate();
 
-    const [reviews, setReviews] = useState([]);
-    const [loadReviews, setLoadReviews] = useState(0);
+
+
+
+
     useEffect(() => {
         fetch(`https://tuition-service-server.vercel.app/servicesreviews/${_id}`)
             .then(res => res.json())
             .then(data => {
                 setReviews(data);
                 setLoadReviews(0);
+                setLoading(false);
                 console.log("called...")
             })
             .catch(error => {
@@ -144,19 +151,36 @@ const ServiceDetails = () => {
 
             <div>
                 {
-                    reviews.length ?
-                        <div>
-                            <h2 className='text-2xl'>Reviews</h2>
-                            {
-                                reviews.map(review => <Review key={review._id} review={review} ></Review>)
-                            }
-
+                    loading ?
+                        <div className="flex justify-center items-center">
+                            <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
                         </div>
                         :
                         <>
-                            <h2 className='text-3xl text-center'>There is no review for this service !</h2>
+                            {
+                                reviews.length ?
+                                    <div>
+                                        <h2 className='text-2xl'>Reviews</h2>
+
+                                        {
+                                            reviews.map(review => <Review key={review._id} review={review} ></Review>)
+                                        }
+
+                                    </div>
+                                    :
+                                    <>
+                                        <h2 className='text-3xl text-center'>There is no review for this service !</h2>
+                                    </>
+                            }
+
                         </>
                 }
+
+
+
+
 
             </div>
 

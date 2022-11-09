@@ -26,7 +26,6 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
-                loader: () => fetch('https://tuition-service-server.vercel.app/')
             },
             {
                 path: '/signup',
@@ -40,7 +39,6 @@ const router = createBrowserRouter([
             {
                 path: '/services',
                 element: <Services></Services>,
-                loader: () => fetch('https://tuition-service-server.vercel.app/services')
             },
             {
                 path: '/services/:id',

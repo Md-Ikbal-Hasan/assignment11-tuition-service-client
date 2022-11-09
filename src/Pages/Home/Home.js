@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import useTitle from '../../customHooks/useTitle';
 import ServiceCard from '../ServiceCard/ServiceCard';
 import heroImage from '../../assets/images/heroImage.jpg'
@@ -10,8 +10,21 @@ import BUETLogo from '../../assets/images/BUET-logo.jpg';
 import CHUETLogo from '../../assets/images/chuet-logo.jpg';
 import ChattogramLogo from '../../assets/images/chittagong-logo.jpg';
 const Home = () => {
-    const services = useLoaderData();
-    useTitle('Home')
+    useTitle('Home');
+
+    const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('https://tuition-service-server.vercel.app/')
+            .then(res => res.json())
+            .then(data => {
+                setServices(data);
+                setLoading(false);
+            })
+    }, [])
+
+
     return (
         <div className='w-full md:w-3/4 mx-auto p-5 md:p-0'>
 
@@ -31,16 +44,31 @@ const Home = () => {
 
             <section className='mb-12'>
                 <h1 className="text-3xl md:text-5xl font-bold text-center">Subject</h1>
+                {
+                    loading ?
+                        <div className="flex justify-center items-center">
+                            <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        :
+                        <>
+                            {/* services  */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-5">
+                                {
+                                    services.map(service => <ServiceCard key={service._id} service={service} ></ServiceCard>)
+                                }
+                            </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-5">
-                    {
-                        services.map(service => <ServiceCard key={service._id} service={service} ></ServiceCard>)
-                    }
-                </div>
-                <div className='text-center my-3'>
-                    <Link to='/services' className='text-center btn btn-outline btn-secondary'>  Show all  </Link>
-                </div>
+                            <div className='text-center my-3'>
+                                <Link to='/services' className='text-center btn btn-outline btn-secondary'>  Show all  </Link>
+                            </div>
+                        </>
+                }
+
             </section>
+
+
 
             <section className='mb-12 bg-base-200 p-5'>
 
