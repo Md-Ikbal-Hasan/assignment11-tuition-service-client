@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { setAuthToken } from '../../api/auth';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import useTitle from '../../customHooks/useTitle';
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 const Login = () => {
@@ -11,6 +12,8 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+
+    useTitle('Login')
 
     const handleLogin = (e) => {
         e.preventDefault();

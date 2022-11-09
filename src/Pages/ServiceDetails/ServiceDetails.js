@@ -3,9 +3,11 @@ import { FaStar } from 'react-icons/fa';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import useTitle from '../../customHooks/useTitle';
 import Review from '../Review/Review';
 
 const ServiceDetails = () => {
+    useTitle('Service Details')
     const { user } = useContext(AuthContext);
     const service = useLoaderData();
     const { _id, name, description, price, ratings } = service;

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
+import useTitle from '../../customHooks/useTitle';
 import ServiceCard from '../ServiceCard/ServiceCard';
 
 const Home = () => {
     const services = useLoaderData();
+    useTitle('Home')
     return (
         <div className='w-3/4 mx-auto'>
             <h2 className='text-3xl text-center'>This is Home page</h2>
