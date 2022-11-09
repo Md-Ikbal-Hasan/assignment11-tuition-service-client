@@ -11,7 +11,7 @@ const MyReviews = () => {
     useTitle('My Reviews')
 
     useEffect(() => {
-        fetch(`http://localhost:5000/userreviews?email=${user?.email}`, {
+        fetch(`https://tuition-service-server.vercel.app/userreviews?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('tuition-service-token')}`
             }
@@ -30,7 +30,7 @@ const MyReviews = () => {
         const proceed = window.confirm("Are you sure, you want to delete this review?");
 
         if (proceed) {
-            fetch(`http://localhost:5000/reviews/${id}`, {
+            fetch(`https://tuition-service-server.vercel.app/reviews/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',

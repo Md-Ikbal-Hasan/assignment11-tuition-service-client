@@ -10,7 +10,7 @@ const Services = () => {
 
     return (
         <div className='w-3/4 mx-auto'>
-            <h2 className='text-2xl text-center font-semibold'>My all Tuition Subject: {services.length} </h2>
+            <h1 className="text-5xl font-bold text-center">Subject</h1>
 
             {/* service section  */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-5">
