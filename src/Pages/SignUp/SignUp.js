@@ -36,8 +36,9 @@ const SignUp = () => {
                 setAuthToken(user);
                 navigate(from, { replace: true });
             })
-            .then(error => {
-                console.error(error)
+            .catch(error => {
+
+                toast(error.message)
 
             })
 
@@ -53,7 +54,7 @@ const SignUp = () => {
             .then(() => {
                 toast.success("User profile updated")
             })
-            .then(error => console.error(error))
+            .catch(error => toast(error.message))
     }
 
 

@@ -24,7 +24,9 @@ const EditReview = () => {
                     toast.success("review updated successfully !")
                     navigate('/myreviews')
                 }
-
+            })
+            .catch(error => {
+                toast.error(error.message)
             })
     }
 

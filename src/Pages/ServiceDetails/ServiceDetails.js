@@ -27,6 +27,10 @@ const ServiceDetails = () => {
                 setLoadReviews(0);
                 console.log("called...")
             })
+            .catch(error => {
+                console.error(error)
+                toast.error(error.message)
+            })
     }, [_id, loadReviews])
 
 
@@ -70,7 +74,10 @@ const ServiceDetails = () => {
                         form.reset();
                     }
                 })
-                .catch(error => console.error(error))
+                .catch(error => {
+                    console.error(error)
+                    toast.error(error.message)
+                })
         }
         else {
             toast.info("To add a review login first");

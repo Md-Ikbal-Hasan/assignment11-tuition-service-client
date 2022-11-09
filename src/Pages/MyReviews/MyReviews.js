@@ -20,7 +20,10 @@ const MyReviews = () => {
             .then(data => {
                 setMyReviews(data);
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                toast.error(error.message)
+            })
 
     }, [user?.email])
 

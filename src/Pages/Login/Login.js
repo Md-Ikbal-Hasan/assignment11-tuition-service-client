@@ -27,13 +27,12 @@ const Login = () => {
                 const user = result.user;
                 console.log("email-pass user:", user);
                 form.reset();
-
-                toast.success("User logged in successfully!");
                 navigate(from, { replace: true });
                 setAuthToken(user);
+                toast.success("User logged in successfully!");
             })
-            .then(error => {
-                console.error(error);
+            .catch(error => {
+                toast.error(error.message)
 
             })
 

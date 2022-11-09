@@ -39,8 +39,9 @@ const AddService = () => {
                     form.reset();
                 }
             })
-            .then(error => {
+            .catch(error => {
                 console.log(error);
+                toast.error(error.message)
 
             })
 
