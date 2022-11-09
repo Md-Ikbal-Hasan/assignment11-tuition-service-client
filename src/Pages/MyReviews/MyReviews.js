@@ -16,7 +16,6 @@ const MyReviews = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log("my reviews: ", data);
                 setMyReviews(data);
             })
             .catch(error => console.log(error))

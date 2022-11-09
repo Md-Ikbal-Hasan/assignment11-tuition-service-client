@@ -12,16 +12,17 @@ const ServiceDetails = () => {
 
     const navigate = useNavigate();
 
-
     const [reviews, setReviews] = useState([]);
-    // console.log(user)
+    const [loadReviews, setLoadReviews] = useState(0);
     useEffect(() => {
         fetch(`http://localhost:5000/servicesreviews/${_id}`)
             .then(res => res.json())
             .then(data => {
-                setReviews(data)
+                setReviews(data);
+                setLoadReviews(0);
+                console.log("called...")
             })
-    }, [_id])
+    }, [_id, loadReviews])
 
 
     const handleReview = (e) => {
@@ -59,6 +60,7 @@ const ServiceDetails = () => {
                 .then(data => {
                     if (data.acknowledged) {
                         toast.success("review added successfully!");
+                        setLoadReviews(1);
                         console.log(data);
                         form.reset();
                     }
@@ -86,8 +88,8 @@ const ServiceDetails = () => {
                     <div className="card-body">
                         <h2 className="card-title"> {name} </h2>
                         <p> {description} </p>
-                        <p>Price: {price} </p>
-                        <div className='flex items-center'>Rating: {ratings} <FaStar className='ml-1 text-orange-600' /> </div>
+                        <p className='font-semibold'>Price: {price} </p>
+                        <div className='flex items-center font-semibold'>Rating: {ratings} <FaStar className='ml-1 text-orange-600' /> </div>
 
                     </div>
                 </div>

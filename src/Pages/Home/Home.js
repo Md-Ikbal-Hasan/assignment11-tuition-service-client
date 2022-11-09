@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import ServiceCard from '../ServiceCard/ServiceCard';
 
 const Home = () => {
@@ -13,6 +13,9 @@ const Home = () => {
                 {
                     services.map(service => <ServiceCard key={service._id} service={service} ></ServiceCard>)
                 }
+            </div>
+            <div className='text-center my-3'>
+                <Link to='/services' className='text-center btn btn-outline btn-secondary'>  Show all  </Link>
             </div>
 
 

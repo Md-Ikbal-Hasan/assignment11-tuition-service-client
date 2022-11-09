@@ -8,9 +8,20 @@ const ServiceCard = ({ service }) => {
             <figure><img src={service.image} alt="service" className='h-48 w-full' /></figure>
             <div className="card-body">
                 <h2 className="card-title"> {name} </h2>
-                <p> {description} </p>
-                <p>Price: {price} </p>
-                <div className='flex items-center'>Rating: {ratings} <FaStar className='ml-1 text-orange-600' /> </div>
+                <p>
+                    {
+                        description.length > 100 ?
+                            <>
+                                {description.slice(0, 100) + ' ......'}
+                            </>
+                            :
+                            <>
+                                {description}
+                            </>
+                    }
+                </p>
+                <p className='font-semibold'>Price: {price} </p>
+                <div className='flex items-center font-semibold '>Rating: {ratings} <FaStar className='ml-1 text-orange-600' /> </div>
                 <div className="card-actions  ">
                     <Link to={`/services/${_id}`}>
                         <button className="btn btn-secondary w-full">Details</button>
