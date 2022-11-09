@@ -6,6 +6,9 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../customHooks/useTitle';
 import Review from '../Review/Review';
 
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
+
 const ServiceDetails = () => {
     useTitle('Service Details')
     const { user } = useContext(AuthContext);
@@ -86,7 +89,11 @@ const ServiceDetails = () => {
 
                 {/* service card  */}
                 <div className="card card-compact   bg-gray-700 text-white shadow-xl">
-                    <figure><img src={service.image} alt="service" className='w-full' /></figure>
+                    <PhotoProvider>
+                        <PhotoView src={service.image}>
+                            <figure><img src={service.image} alt="service" className='w-full' /></figure>
+                        </PhotoView>
+                    </PhotoProvider>
                     <div className="card-body">
                         <h2 className="card-title"> {name} </h2>
                         <p> {description} </p>

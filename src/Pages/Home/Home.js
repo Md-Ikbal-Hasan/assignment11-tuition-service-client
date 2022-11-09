@@ -22,7 +22,7 @@ const Home = () => {
                         <div>
                             <h1 className="text-3xl md:text-5xl font-bold">Best Tuition Service</h1>
                             <p className="py-6">In my tuition service center I provide qualitiful education. Here student can learn directly from me. I solve student's indivual problem one to one </p>
-                            <button className="btn btn-primary">Get Started</button>
+                            <Link to='/services'><button className="btn btn-primary">See all subject</button></Link>
                         </div>
                     </div>
                 </div>
