@@ -10,7 +10,7 @@ const EditReview = () => {
 
     const handleUpdateReview = (e) => {
         e.preventDefault();
-        fetch(`https://tuition-service-server.vercel.app/reviews/${review._id}`, {
+        fetch(`http://localhost:5000/reviews/${review._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

@@ -26,7 +26,7 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
-                loader: () => fetch('https://tuition-service-server.vercel.app/')
+                loader: () => fetch('http://localhost:5000/')
             },
             {
                 path: '/signup',
@@ -40,12 +40,12 @@ const router = createBrowserRouter([
             {
                 path: '/services',
                 element: <Services></Services>,
-                loader: () => fetch('https://tuition-service-server.vercel.app/services')
+                loader: () => fetch('http://localhost:5000/services')
             },
             {
                 path: '/services/:id',
                 element: <ServiceDetails></ServiceDetails>,
-                loader: ({ params }) => fetch(`https://tuition-service-server.vercel.app/services/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/services/${params.id}`)
 
             },
             {
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
             {
                 path: `/editreviews/:id`,
                 element: <PrivateRoute>  <EditReview></EditReview> </PrivateRoute>,
-                loader: ({ params }) => fetch(`https://tuition-service-server.vercel.app/reviews/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/reviews/${params.id}`)
 
             },
             {

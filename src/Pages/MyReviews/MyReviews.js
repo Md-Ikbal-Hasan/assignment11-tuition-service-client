@@ -9,13 +9,14 @@ const MyReviews = () => {
     const [myReviews, setMyReviews] = useState([]);
 
     useEffect(() => {
-        fetch(`https://tuition-service-server.vercel.app/userreviews?email=${user?.email}`, {
+        fetch(`http://localhost:5000/userreviews?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('tuition-service-token')}`
             }
         })
             .then(res => res.json())
             .then(data => {
+                console.log("my reviews: ", data);
                 setMyReviews(data);
             })
             .catch(error => console.log(error))
@@ -28,7 +29,7 @@ const MyReviews = () => {
         const proceed = window.confirm("Are you sure, you want to delete this review?");
 
         if (proceed) {
-            fetch(`https://tuition-service-server.vercel.app/reviews/${id}`, {
+            fetch(`http://localhost:5000/reviews/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'content-type': 'application/json',
@@ -65,15 +66,6 @@ const MyReviews = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>
-                                <button className='btn btn-outline btn-error mr-2'> <FaTrashAlt /> </button>
-                                <button className='btn btn-outline btn-secondary'> <FaEdit /> </button>
-                            </td>
-                        </tr> */}
 
                         {
                             myReviews.map((review, index) => {

@@ -7,7 +7,7 @@ import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 
 const SignUp = () => {
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, setLoading } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,15 +18,17 @@ const SignUp = () => {
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
+        const photo = form.photo.value;
         const password = form.password.value;
-        console.log(name, email, password);
+        console.log(name, email, password, photo);
 
         createUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log("email-pass user:", user);
                 form.reset();
-                handleUpdateUserProfile(name);
+                handleUpdateUserProfile(name, photo);
+                setLoading(false)
                 toast.success("User created successfully!");
                 setAuthToken(user);
                 navigate(from, { replace: true });
@@ -38,14 +40,15 @@ const SignUp = () => {
 
     }
 
-    const handleUpdateUserProfile = (name) => {
+    const handleUpdateUserProfile = (name, photo) => {
         const profile = {
-            displayName: name
+            displayName: name,
+            photoURL: photo
         }
 
         updateUserProfile(profile)
             .then(() => {
-                toast.success("User name updated")
+                toast.success("User profile updated")
             })
             .then(error => console.error(error))
     }
@@ -72,6 +75,15 @@ const SignUp = () => {
                     </label>
                     <input type="email" name='email' placeholder="email" className="input input-bordered" required />
                 </div>
+
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Photo URL</span>
+                    </label>
+                    <input type="text" name='photo' placeholder="your photo url" className="input input-bordered" required />
+                </div>
+
+
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Password</span>
